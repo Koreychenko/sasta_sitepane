@@ -1,0 +1,34 @@
+<?php
+
+function sasta_sitepane_form_system_site_information_settings_alter(&$form, &$form_state) {
+  $phones = variable_get('sasta_sitepane_phones',array());
+  $phones = implode("\n",$phones);
+  $form['site_information']['phones'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Site phones'),
+    '#default_value' => $phones,
+    '#description' => t('Enter one phone per line'),
+    );
+
+  $form['site_information']['address'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Site address'),
+    '#default_value' => variable_get('sasta_sitepane_address',''),
+    '#description' => t('Enter site address'),
+    );
+
+  $form['#submit'][] = 'sasta_sitepane_info_submit';
+}
+
+function sasta_sitepane_info_submit(&$form, &$form_state) {
+  $phones = $form_state['values']['phones'];
+  $phones = explode("\n",$phones);
+  variable_set('sasta_sitepane_phones',$phones);
+  variable_set('sasta_sitepane_address',$form_state['values']['address']);
+}
+
+function sasta_sitepane_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner == 'ctools' && $plugin_type == 'content_types') {
+    return 'plugins/' . $plugin_type;
+  }
+}
