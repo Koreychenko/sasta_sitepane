@@ -73,7 +73,7 @@ function sasta_sitepane_phones_render($subtype, $conf, $panel_args, $context = N
     break;
   }
 
-  $block->content = $content;
+  $block->content = '<i class="fa fa-phone">&nbsp;</i>'.$content;
 
   return $block;
 }

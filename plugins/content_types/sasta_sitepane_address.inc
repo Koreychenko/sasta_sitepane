@@ -16,7 +16,7 @@ function sasta_sitepane_address_render($subtype, $conf, $panel_args, $context = 
 
   $block->title = '';
 
-  $block->content = variable_get('sasta_sitepane_address','');
+  $block->content = '<i class="fa fa-map-marker">&nbsp;</i><div class="item-list">'.variable_get('sasta_sitepane_address','').'</div>';
 
   return $block;
 }
